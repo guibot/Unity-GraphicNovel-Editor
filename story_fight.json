@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "start": "n_zcl39",
+  "characters": [
+    {
+      "id": "player",
+      "name": "Guerreiro",
+      "isPlayer": true,
+      "color": "#3fae8f",
+      "avatar": ""
+    },
+    {
+      "id": "robot",
+      "name": "Bot",
+      "isPlayer": false,
+      "color": "#e0a030",
+      "avatar": ""
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n_zcl39",
+      "type": "fala",
+      "character": "robot",
+      "kind": "afirmacao",
+      "text": "Humano, estás perto do grande desafio!! Espero que estejas pronto e que tenhas apanhado as moedas todas :p",
+      "events": [
+        "fundo:parque_dia"
+      ],
+      "next": "n_tai46",
+      "options": [],
+      "x": 236,
+      "y": 205,
+      "w": 355,
+      "h": 142
+    },
+    {
+      "id": "n_tai46",
+      "type": "fala",
+      "character": "player",
+      "kind": "afirmacao",
+      "text": "Estou pronto, onde está o bot traidor?",
+      "events": [],
+      "next": "n_kfkmb",
+      "options": [],
+      "x": 643,
+      "y": 205,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_kfkmb",
+      "type": "fala",
+      "character": "robot",
+      "kind": "afirmacao",
+      "text": "Tens que apanhar o JetPack e subir para a plataforma de cima.",
+      "events": [],
+      "next": "n_pgbj2",
+      "options": [],
+      "x": 926,
+      "y": 205,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_pgbj2",
+      "type": "fala",
+      "character": "player",
+      "kind": "afirmacao",
+      "text": "Ok, vou tratar disso. É bom que esse bot esteja bem oleado!",
+      "events": [],
+      "next": "n_uq8a0",
+      "options": [],
+      "x": 1203,
+      "y": 205,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_uq8a0",
+      "type": "fala",
+      "character": "robot",
+      "kind": "afirmacao",
+      "text": "Dá-lhe com força humano!",
+      "events": [],
+      "next": "",
+      "options": [],
+      "x": 1491,
+      "y": 206,
+      "w": 0,
+      "h": 0
+    }
+  ]
+}
