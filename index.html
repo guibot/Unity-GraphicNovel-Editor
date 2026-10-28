@@ -70,11 +70,12 @@ input[type=color]{width:30px;height:28px;padding:0;border:1px solid var(--border
 .nbody{padding:8px 10px 8px;font-size:12.5px;line-height:1.38;border-radius:0 0 8px 8px}
 .ntext{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;min-height:2.76em}
 .ntext.empty{color:var(--muted);font-style:italic}
-.nfoot{margin-top:5px;display:flex;gap:6px}
-.chip{font-size:11px;color:var(--warn);background:rgba(240,180,80,.12);border-radius:99px;padding:0 7px}
+.nfoot{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px 6px}
+.chip{font-size:11px;color:var(--warn);background:rgba(240,180,80,.12);border-radius:99px;padding:0 7px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .opts{border-radius:0 0 8px 8px}
 .opt{position:relative;display:flex;gap:6px;align-items:flex-start;padding:6px 18px 6px 10px;border-top:1px solid var(--border);font-size:12.5px;line-height:1.35}
 .opt .num{flex:none;color:var(--muted);font-size:11px;padding-top:1px}
+.opt .ocol{flex:1;min-width:0}
 .opt .otext{flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
 .opt .otext.empty{color:var(--muted);font-style:italic}
 .noopts{padding:8px 10px;color:var(--warn);font-style:italic;font-size:12px;border-top:1px solid var(--border)}
@@ -584,6 +585,10 @@ function autosizeField(f) {
 }
 function autosizeIn(el) { el.querySelectorAll('textarea.nedit, .chips input.evin').forEach(autosizeField); }
 
+// Eventos visíveis no nó não selecionado (um chip por evento).
+function evChips(events) {
+  return h('div', { class: 'nfoot' }, events.map(ev => h('span', { class: 'chip', text: '⚡ ' + ev, title: ev })));
+}
 function renderNode(n) {
   let el = nodeEls.get(n.id);
   if (!el) {
@@ -633,8 +638,7 @@ function renderNode(n) {
     } else {
       body = h('div', { class: 'nbody' },
         h('div', { class: 'ntext' + (n.text.trim() ? '' : ' empty'), text: n.text.trim() ? n.text : '(sem texto)' }));
-      if (n.events.length) body.append(h('div', { class: 'nfoot' },
-        h('span', { class: 'chip', text: '⚡ ' + n.events.length, title: n.events.join('\n') })));
+      if (n.events.length) body.append(evChips(n.events));
     }
     el.append(head, body);
   } else {
@@ -645,8 +649,9 @@ function renderNode(n) {
       if (!sel) {
         opts.append(h('div', { class: 'opt' },
           h('span', { class: 'num', text: (i + 1) + '.' }),
-          h('span', { class: 'otext' + (o.text.trim() ? '' : ' empty'), text: o.text.trim() ? o.text : '(sem texto)' }),
-          o.events.length ? h('span', { class: 'chip', text: '⚡' + o.events.length, title: o.events.join('\n') }) : null,
+          h('div', { class: 'ocol' },
+            h('span', { class: 'otext' + (o.text.trim() ? '' : ' empty'), text: o.text.trim() ? o.text : '(sem texto)' }),
+            o.events.length ? evChips(o.events) : null),
           port));
         return;
       }
