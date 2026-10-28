@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "start": "n_zcl39",
+  "start": "n_w86ip",
   "characters": [
     {
       "id": "player",
-      "name": "Guerreiro",
+      "name": "Tu",
       "isPlayer": true,
       "color": "#3fae8f",
       "avatar": ""
     },
     {
-      "id": "robot",
-      "name": "Bot",
+      "id": "bot",
+      "name": "Robot",
       "isPlayer": false,
       "color": "#e0a030",
       "avatar": ""
@@ -19,74 +19,165 @@
   ],
   "nodes": [
     {
-      "id": "n_zcl39",
+      "id": "n_w86ip",
       "type": "fala",
-      "character": "robot",
+      "character": "bot",
       "kind": "afirmacao",
-      "text": "Humano, ainda bem que estás aqui! \nTenho uma missão para ti!\nQueres saber qual é?",
-      "events": [
-        "fundo:parque_dia"
-      ],
-      "next": "n_tai46",
+      "text": "Olá Humano!!",
+      "events": [],
+      "next": "n_afl3t",
       "options": [],
-      "x": 236,
-      "y": 205,
-      "w": 355,
-      "h": 142
+      "x": 179,
+      "y": 179,
+      "w": 0,
+      "h": 0
     },
     {
-      "id": "n_tai46",
+      "id": "n_afl3t",
       "type": "fala",
+      "character": "bot",
+      "kind": "pergunta",
+      "text": "Vai uma partida de Xadrez?",
+      "events": [],
+      "next": "n_4uehl",
+      "options": [],
+      "x": 459,
+      "y": 180,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_4uehl",
+      "type": "resposta",
       "character": "player",
-      "kind": "afirmacao",
-      "text": "Sim! Diz-me!",
-      "events": [],
-      "next": "n_kfkmb",
-      "options": [],
-      "x": 643,
-      "y": 205,
-      "w": 0,
-      "h": 0
-    },
-    {
-      "id": "n_kfkmb",
-      "type": "fala",
-      "character": "robot",
-      "kind": "afirmacao",
-      "text": "Preciso que derrotes aquele robot traidor. Achas que consegues?",
-      "events": [],
-      "next": "n_pgbj2",
-      "options": [],
-      "x": 926,
-      "y": 205,
-      "w": 0,
-      "h": 0
-    },
-    {
-      "id": "n_pgbj2",
-      "type": "fala",
-      "character": "player",
-      "kind": "afirmacao",
-      "text": "Acho que sim, deve ser pacífico!!",
-      "events": [],
-      "next": "n_uq8a0",
-      "options": [],
-      "x": 1203,
-      "y": 205,
-      "w": 0,
-      "h": 0
-    },
-    {
-      "id": "n_uq8a0",
-      "type": "fala",
-      "character": "robot",
-      "kind": "afirmacao",
-      "text": "Então vai lá! Cuidado com os obstáculos pelo caminho, também podes tentar apanhar umas moedas, dá sempre jeito 😄",
+      "kind": "",
+      "text": "",
       "events": [],
       "next": "",
+      "options": [
+        {
+          "text": "Sim vamos a isso!",
+          "to": "n_5040t",
+          "events": []
+        },
+        {
+          "text": "Prefiro jogar Tetris!",
+          "to": "n_aizul",
+          "events": []
+        }
+      ],
+      "x": 736,
+      "y": 181,
+      "w": 285,
+      "h": 126
+    },
+    {
+      "id": "n_5040t",
+      "type": "fala",
+      "character": "bot",
+      "kind": "afirmacao",
+      "text": "Boa! Vou buscar o tabuleiro ;)",
+      "events": [
+        "imagem:xadrez"
+      ],
+      "next": "n_blupc",
       "options": [],
-      "x": 1491,
-      "y": 206,
+      "x": 1100,
+      "y": 109,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_aizul",
+      "type": "fala",
+      "character": "bot",
+      "kind": "afirmacao",
+      "text": "Ok! Vamos a isso ;)",
+      "events": [
+        "imagem:tetris"
+      ],
+      "next": "n_tqmn8",
+      "options": [],
+      "x": 1104,
+      "y": 318,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_blupc",
+      "type": "fala",
+      "character": "bot",
+      "kind": "pergunta",
+      "text": "Queres jogar com as peças brancas ou com as pretas?",
+      "events": [],
+      "next": "n_0zzp6",
+      "options": [],
+      "x": 1423,
+      "y": 110,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_0zzp6",
+      "type": "resposta",
+      "character": "player",
+      "kind": "",
+      "text": "",
+      "events": [],
+      "next": "",
+      "options": [
+        {
+          "text": "Brancas",
+          "to": "",
+          "events": []
+        },
+        {
+          "text": "Pretas",
+          "to": "",
+          "events": []
+        }
+      ],
+      "x": 1739,
+      "y": 110,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_tqmn8",
+      "type": "fala",
+      "character": "bot",
+      "kind": "pergunta",
+      "text": "Queres um nível fácil ou difícil?",
+      "events": [],
+      "next": "n_mzicp",
+      "options": [],
+      "x": 1426,
+      "y": 319,
+      "w": 0,
+      "h": 0
+    },
+    {
+      "id": "n_mzicp",
+      "type": "resposta",
+      "character": "player",
+      "kind": "",
+      "text": "",
+      "events": [],
+      "next": "",
+      "options": [
+        {
+          "text": "Fácil",
+          "to": "",
+          "events": []
+        },
+        {
+          "text": "Difícil",
+          "to": "",
+          "events": []
+        }
+      ],
+      "x": 1744,
+      "y": 321,
       "w": 0,
       "h": 0
     }
