@@ -375,6 +375,22 @@ function createNode(type, x, y, opts = {}) {
   drawLinks(); renderWarnings(); updateEmpty(); scheduleSave();
   return n;
 }
+// Troca fala <-> resposta mantendo o id (as ligações de entrada continuam válidas).
+function convertNode(n) {
+  if (n.type === 'fala') {
+    n.options = [{ text: n.text, to: n.next, events: n.events }];
+    n.type = 'resposta'; n.character = playerChar().id; n.kind = '';
+    n.text = ''; n.events = []; n.next = '';
+  } else {
+    if (n.options.length > 1 && !confirm(`Só a 1.ª opção passa para a fala; as outras ${n.options.length - 1} são apagadas. Continuar?`)) return;
+    const o = n.options[0] || { text: '', to: '', events: [] };
+    n.type = 'fala'; n.kind = 'afirmacao';
+    n.text = o.text; n.next = o.to; n.events = [...n.events, ...o.events];
+    n.options = [];
+  }
+  n.w = 0; n.h = 0;
+  renderChars(); structural(n);
+}
 function deleteNode(id) {
   const i = proj.nodes.findIndex(n => n.id === id);
   if (i < 0) return;
@@ -602,6 +618,8 @@ function renderNode(n) {
     h('div', { class: 'port in' }), who,
     problems.length ? h('span', { class: 'warnicon', text: '⚠', title: problems.join('\n') }) : null,
     badge,
+    sel ? h('button', { class: 'flag', text: '⇄', title: isFala ? 'Converter em resposta' : 'Converter em fala',
+      onclick: () => convertNode(n) }) : null,
     sel ? h('button', { class: 'flag' + (isStart ? ' on' : ''), text: '⚑', title: isStart ? 'É o nó de início (clicar para remover)' : 'Definir como início',
       onclick: () => toggleStart(n) }) : null);
 
@@ -1024,6 +1042,8 @@ function renderInspector() {
   box.append(h('div', { class: 'btnrow' },
     h('button', { class: isStart ? '' : 'primary', disabled: isStart, text: isStart ? '✓ Nó de início' : 'Definir como início',
       onclick: () => setStart(n.id) }),
+    h('button', { text: n.type === 'fala' ? 'Converter em resposta' : 'Converter em fala',
+      title: 'Mantém texto, eventos e ligações', onclick: () => convertNode(n) }),
     h('button', { class: 'danger', text: 'Apagar nó', onclick: () => deleteNode(n.id) })));
 }
 
@@ -1432,7 +1452,8 @@ function openDropMenu(src, cx, cy) {
   closeDropMenu(); closeMenu();
   const from = byId.get(src.id); if (!from) return;
   const w = toWorld(cx, cy);
-  const items = from.type === 'fala' && from.kind === 'pergunta' ? ['resposta', 'fala'] : ['fala', 'resposta'];
+  const asks = from.type === 'fala' && (from.kind === 'pergunta' || from.text.trim().endsWith('?'));
+  const items = asks ? ['resposta', 'fala'] : ['fala', 'resposta'];
   const el = h('div', { class: 'dropmenu', role: 'menu' },
     items.map((type, i) => h('button', { class: 'mi', text: type === 'fala' ? '+ Fala' : '+ Resposta',
       onmouseenter: () => setDropIdx(i), onclick: () => chooseDrop(type) })));
